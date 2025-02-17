@@ -1,8 +1,16 @@
 package project_1;
 
+/*
+* Names: Donald Knuth
+* netID: dknuth
+* G#: 00123456
+* Lecture section: 004
+* Lab section: 213
+*/
+
 public class Hero {
 
-    String heroName;
+    String name;
     int hitPointsRemaining;
     int hitPointsMax;
     int attackRating;
@@ -12,7 +20,7 @@ public class Hero {
     int healingPotions;
     
     public Hero(String name, int hpMax, int ar, int dr, int potions) {
-        this.heroName = name;
+        this.name = name;
         this.hitPointsMax = hpMax;
         this.attackRating = ar;
         this.defenseRating = dr;
@@ -24,18 +32,12 @@ public class Hero {
     }
 
     public boolean hasHPRemaining() {
-        return this.hitPointsRemaining > 0 ? true : false;
+        return this.hitPointsRemaining > 0;
     }
 
     public void receiveAttack(int incAttack) {
-        int damage = incAttack - this.defenseRating;
-        if(damage < 0) {
-            damage = 0;
-        }
-        this.hitPointsRemaining -= damage;
-        if(this.hitPointsRemaining <= 0) {
-            this.hitPointsRemaining = 0;
-        }
+        int damage = Math.max(0, incAttack - this.defenseRating);
+        this.hitPointsRemaining = Math.max(0, this.hitPointsRemaining - damage);
     }
 
     public void receiveXP(int xpReceived) {
@@ -44,13 +46,33 @@ public class Hero {
         this.currentLevel += levelsGained;
         this.hitPointsMax += levelsGained * 5;
         this.hitPointsRemaining = this.hitPointsMax;
+        this.currentXP %= 10; // Reset XP after leveling up
+    }
     
+    public int getLevelsGained() {
+        return this.currentXP / 10;
     }
 
     public void useHealingPotion() {
-        if(this.healingPotions > 0) {
+        if (this.healingPotions > 0) {
             this.hitPointsRemaining = this.hitPointsMax;
             this.healingPotions--;
         }
+    }
+
+    public int getAttackRating() {
+        return this.attackRating;
+    }
+
+    public String getHeroName() {
+        return this.name;
+    }
+
+    public int getCurrentXP() {
+        return this.currentXP;
+    }
+
+    public void increaseHealingPotions(int amount) {
+        this.healingPotions += amount;
     }
 }

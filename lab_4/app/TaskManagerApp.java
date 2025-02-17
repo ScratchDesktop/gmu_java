@@ -18,5 +18,9 @@ public class TaskManagerApp {
     public static void main(String[] args) {
         TaskList myTaskList = new TaskList(new Task[0], 5);
         myTaskList.displayTasks();
+
+        Task t1 = new Task(1, "Task 1", "Homework");
+
+        myTaskList.addTask(t1);
     }
 }
