@@ -6,7 +6,7 @@ import java.util.Collections;
 public class MediaLibrary {
     private List<Label<String, Media>> library;
 
-    MediaLibrary() {
+    public MediaLibrary() {
         this.library = new ArrayList<>();
     }
 

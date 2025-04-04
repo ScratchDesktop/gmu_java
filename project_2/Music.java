@@ -6,7 +6,7 @@ public abstract class Music extends Media {
     private String title;
     private int year;
 
-    Music(Format format, String isbn, String genre, String artist, String title, int year) {
+    public Music(Format format, String isbn, String genre, String artist, String title, int year) {
         super(format, isbn, genre);
         this.artist = artist;
         this.title = title;
@@ -20,6 +20,11 @@ public abstract class Music extends Media {
 
     @Override
     public abstract int compareTo(Media other);
+
+    @Override
+    public String toString() {
+        return "Artist: " + getArtist() + ", Year: " + getYear() + ", Title: " + getTitle() + ", " + super.toString();
+    }
 
     public final String getArtist() {
         return artist;
