@@ -1,4 +1,4 @@
-package project_2;
+// package project_2;
 
 public class Music extends Media {
     
@@ -20,17 +20,22 @@ public class Music extends Media {
 
     @Override
     public int compareTo(Media other) {
-        if(!(other instanceof Music)) {
-            throw new IllegalArgumentException("Can Only Compare Music with Music");
+        int thisPriority = Media.getMediaTypePriority(this);
+        int otherPriority = Media.getMediaTypePriority(other);
+    
+        if (thisPriority != otherPriority) {
+            return Integer.compare(thisPriority, otherPriority);
         }
-
+    
         Music m = (Music) other;
-        int year_diff = this.getYear() - m.getYear();
-        if(year_diff != 0) {
-            return year_diff;
-        }
-
-        return this.getArtist().compareTo(m.getArtist());
+    
+        int artistComp = this.getArtist().compareTo(m.getArtist());
+        if (artistComp != 0) return artistComp;
+    
+        int yearComp = Integer.compare(this.getYear(), m.getYear());
+        if (yearComp != 0) return yearComp;
+    
+        return this.getTitle().compareTo(m.getTitle());
     }
 
     public final String getArtist() {
